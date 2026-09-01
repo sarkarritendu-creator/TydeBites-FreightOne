@@ -1,0 +1,82 @@
+{
+  "australia": {
+    "country": "Australia",
+    "port_code": "AUPHE",
+    "port_name": "Port Hedland",
+    "lat": -20.3100,
+    "lon": 118.5750,
+    "typical_transit_days_to_east_coast": 17,
+    "primary_cargo": ["iron_ore", "coking_coal"],
+    "notes": "Major bulk export hub for iron ore and coal."
+  },
+  "indonesia": {
+    "country": "Indonesia",
+    "port_code": "IDTPP",
+    "port_name": "Tanjung Priok / Kalimantan ports",
+    "lat": -6.1045,
+    "lon": 106.8804,
+    "typical_transit_days_to_east_coast": 12,
+    "primary_cargo": ["thermal_coal"],
+    "notes": "Key thermal coal source; multiple loading points in Kalimantan."
+  },
+  "south_africa": {
+    "country": "South Africa",
+    "port_code": "ZARCB",
+    "port_name": "Richards Bay",
+    "lat": -28.7830,
+    "lon": 32.0370,
+    "typical_transit_days_to_east_coast": 20,
+    "primary_cargo": ["thermal_coal", "iron_ore"],
+    "notes": "Richards Bay Coal Terminal is one of the world's largest."
+  },
+  "brazil": {
+    "country": "Brazil",
+    "port_code": "BRSSZ",
+    "port_name": "Santos / Tubarao",
+    "lat": -23.9608,
+    "lon": -46.3333,
+    "typical_transit_days_to_east_coast": 28,
+    "primary_cargo": ["iron_ore"],
+    "notes": "Long-haul iron ore route; higher freight sensitivity."
+  },
+  "mozambique": {
+    "country": "Mozambique",
+    "port_code": "MZMPM",
+    "port_name": "Maputo / Beira",
+    "lat": -25.9653,
+    "lon": 32.5892,
+    "typical_transit_days_to_east_coast": 14,
+    "primary_cargo": ["coking_coal"],
+    "notes": "Growing coking coal origin for East Coast India."
+  },
+  "uae": {
+    "country": "UAE",
+    "port_code": "AEJEA",
+    "port_name": "Jebel Ali",
+    "lat": 25.0118,
+    "lon": 55.0617,
+    "typical_transit_days_to_east_coast": 10,
+    "primary_cargo": ["limestone"],
+    "notes": "Short-haul limestone and aggregates."
+  },
+  "oman": {
+    "country": "Oman",
+    "port_code": "OMSOH",
+    "port_name": "Sohar",
+    "lat": 24.3640,
+    "lon": 56.7390,
+    "typical_transit_days_to_east_coast": 9,
+    "primary_cargo": ["limestone"],
+    "notes": "Preferred limestone source with reliable draft."
+  },
+  "usa": {
+    "country": "USA",
+    "port_code": "USNOL",
+    "port_name": "New Orleans / Hampton Roads",
+    "lat": 29.9511,
+    "lon": -90.0715,
+    "typical_transit_days_to_east_coast": 30,
+    "primary_cargo": ["coking_coal"],
+    "notes": "US Gulf / East Coast coal exports; longer voyage."
+  }
+}

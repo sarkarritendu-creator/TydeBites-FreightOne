@@ -1,0 +1,102 @@
+{
+  "paradip": {
+    "code": "paradip",
+    "name": "Paradip Port",
+    "state": "Odisha",
+    "country": "India",
+    "lat": 20.2644,
+    "lon": 86.6947,
+    "max_vessel_dwt": 150000,
+    "max_draft_m": 14.5,
+    "berth_capacity": 12,
+    "handling_capability": ["coking_coal", "iron_ore", "thermal_coal", "limestone"],
+    "typical_congestion": "Low",
+    "avg_queue_days": 1.5,
+    "inland_to_plants": {
+      "RSP": {"distance_km": 420, "rail_days": 2, "road_days": 3, "rail_rate_per_mt": 380},
+      "BSP": {"distance_km": 680, "rail_days": 3, "road_days": 5, "rail_rate_per_mt": 520}
+    },
+    "historic_preference": {
+      "coking_coal": 0.42,
+      "iron_ore": 0.38,
+      "thermal_coal": 0.35,
+      "limestone": 0.20
+    },
+    "notes": "Preferred East Coast hub for SAIL plants in Odisha/Chhattisgarh. Good draft and coal handling."
+  },
+  "haldia": {
+    "code": "haldia",
+    "name": "Haldia Port",
+    "state": "West Bengal",
+    "country": "India",
+    "lat": 22.0333,
+    "lon": 88.1000,
+    "max_vessel_dwt": 90000,
+    "max_draft_m": 10.5,
+    "berth_capacity": 8,
+    "handling_capability": ["coking_coal", "iron_ore", "limestone", "thermal_coal"],
+    "typical_congestion": "Medium",
+    "avg_queue_days": 3.5,
+    "inland_to_plants": {
+      "ISP": {"distance_km": 180, "rail_days": 1, "road_days": 2, "rail_rate_per_mt": 210},
+      "RSP": {"distance_km": 520, "rail_days": 3, "road_days": 4, "rail_rate_per_mt": 450}
+    },
+    "historic_preference": {
+      "coking_coal": 0.18,
+      "iron_ore": 0.25,
+      "thermal_coal": 0.15,
+      "limestone": 0.40
+    },
+    "notes": "Riverine port; draft restricted. Strong for limestone and closer to ISP."
+  },
+  "vizag": {
+    "code": "vizag",
+    "name": "Visakhapatnam Port",
+    "state": "Andhra Pradesh",
+    "country": "India",
+    "lat": 17.6868,
+    "lon": 83.2185,
+    "max_vessel_dwt": 200000,
+    "max_draft_m": 16.5,
+    "berth_capacity": 15,
+    "handling_capability": ["coking_coal", "iron_ore", "thermal_coal", "limestone"],
+    "typical_congestion": "Medium",
+    "avg_queue_days": 2.5,
+    "inland_to_plants": {
+      "VSP": {"distance_km": 25, "rail_days": 0.5, "road_days": 0.5, "rail_rate_per_mt": 80},
+      "RSP": {"distance_km": 780, "rail_days": 4, "road_days": 6, "rail_rate_per_mt": 610}
+    },
+    "historic_preference": {
+      "coking_coal": 0.28,
+      "iron_ore": 0.22,
+      "thermal_coal": 0.30,
+      "limestone": 0.25
+    },
+    "notes": "Deep draft, high capacity. Ideal for VSP and larger Capesize vessels."
+  },
+  "gangavaram": {
+    "code": "gangavaram",
+    "name": "Gangavaram Port",
+    "state": "Andhra Pradesh",
+    "country": "India",
+    "lat": 17.6167,
+    "lon": 83.2333,
+    "max_vessel_dwt": 200000,
+    "max_draft_m": 19.5,
+    "berth_capacity": 6,
+    "handling_capability": ["coking_coal", "iron_ore", "thermal_coal"],
+    "typical_congestion": "Low",
+    "avg_queue_days": 1.0,
+    "inland_to_plants": {
+      "VSP": {"distance_km": 35, "rail_days": 0.5, "road_days": 1, "rail_rate_per_mt": 95},
+      "RSP": {"distance_km": 800, "rail_days": 4, "road_days": 6, "rail_rate_per_mt": 630}
+    },
+    "historic_preference": {
+      "coking_coal": 0.12,
+      "iron_ore": 0.15,
+      "thermal_coal": 0.20,
+      "limestone": 0.05
+    },
+    "notes": "Modern private port adjacent to Vizag; excellent draft."
+  }
+}

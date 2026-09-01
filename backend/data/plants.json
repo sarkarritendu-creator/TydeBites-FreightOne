@@ -1,0 +1,55 @@
+{
+  "RSP": {
+    "code": "RSP",
+    "name": "Rourkela Steel Plant",
+    "location": "Rourkela, Odisha",
+    "nearest_port": "paradip",
+    "state": "Odisha",
+    "daily_consumption_override": {},
+    "inventory": {
+      "coking_coal": {"stock_mt": 108000, "safety_stock_mt": 55000},
+      "iron_ore": {"stock_mt": 205000, "safety_stock_mt": 75000},
+      "limestone": {"stock_mt": 96000, "safety_stock_mt": 34000},
+      "thermal_coal": {"stock_mt": 82000, "safety_stock_mt": 32000}
+    }
+  },
+  "BSP": {
+    "code": "BSP",
+    "name": "Bhilai Steel Plant",
+    "location": "Bhilai, Chhattisgarh",
+    "nearest_port": "paradip",
+    "state": "Chhattisgarh",
+    "inventory": {
+      "coking_coal": {"stock_mt": 95000, "safety_stock_mt": 50000},
+      "iron_ore": {"stock_mt": 180000, "safety_stock_mt": 70000},
+      "limestone": {"stock_mt": 70000, "safety_stock_mt": 28000},
+      "thermal_coal": {"stock_mt": 60000, "safety_stock_mt": 25000}
+    }
+  },
+  "VSP": {
+    "code": "VSP",
+    "name": "Visakhapatnam Steel Plant",
+    "location": "Visakhapatnam, Andhra Pradesh",
+    "nearest_port": "vizag",
+    "state": "Andhra Pradesh",
+    "inventory": {
+      "coking_coal": {"stock_mt": 125000, "safety_stock_mt": 60000},
+      "iron_ore": {"stock_mt": 220000, "safety_stock_mt": 85000},
+      "limestone": {"stock_mt": 85000, "safety_stock_mt": 30000},
+      "thermal_coal": {"stock_mt": 110000, "safety_stock_mt": 40000}
+    }
+  },
+  "ISP": {
+    "code": "ISP",
+    "name": "IISCO Steel Plant",
+    "location": "Burnpur, West Bengal",
+    "nearest_port": "haldia",
+    "state": "West Bengal",
+    "inventory": {
+      "coking_coal": {"stock_mt": 72000, "safety_stock_mt": 40000},
+      "iron_ore": {"stock_mt": 140000, "safety_stock_mt": 55000},
+      "limestone": {"stock_mt": 55000, "safety_stock_mt": 22000},
+      "thermal_coal": {"stock_mt": 48000, "safety_stock_mt": 20000}
+    }
+  }
+}
