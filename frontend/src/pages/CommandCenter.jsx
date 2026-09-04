@@ -12,6 +12,7 @@ import { api } from '../api';
 import PageHead from '../components/PageHead';
 import KPI from '../components/KPI';
 import Chart from '../components/Chart';
+import { getGreeting } from '../utils/greetingHelper';
 
 export default function CommandCenter({ auth, setPage }) {
   const [forecast, setForecast] = useState({ history: [], forecast: [] });
@@ -71,7 +72,7 @@ export default function CommandCenter({ auth, setPage }) {
     <div className="page">
       <PageHead
         eyebrow="COMMAND CENTER"
-        title={`Good morning, ${auth?.plant?.name || 'Plant'}`}
+        title={`${getGreeting()}, ${auth.plant.name}`}
         desc="One view across procurement, freight, route risk and live shipments."
         action={
           <button className="secondary" onClick={() => window.location.reload()}>
