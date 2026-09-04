@@ -49,7 +49,8 @@
       "position": "North Bay of Bengal - waiting instructions",
       "voyage_days_elapsed": 22,
       "voyage_days_total": 32,
-      "risk_flag": "high"
+      "risk_flag": "high",
+      "reroute_suggested": true
     },
     {
       "id": "FO-2431",
