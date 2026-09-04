@@ -3,7 +3,8 @@
  * All screens should go through this so timeout / error handling is consistent.
  */
 
-const API = 'http://localhost:8000';
+const API = 'https://tydebites-freightone-4kmn.onrender.com';
+export default API;
 
 export async function api(path, opts = {}, timeoutMs = 12000) {
   const controller = new AbortController();
