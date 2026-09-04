@@ -14,7 +14,7 @@ from typing import Optional, List
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-
+from services.weather_service import weather_service
 from services.data_loader import (
     managers, materials, plants, consignments as load_consignments,
     source_ports, destination_ports, cargo_prices, news_feed, reload_all
@@ -166,9 +166,10 @@ def risk_score():
     return network_risk_score()
 
 
-@app.get("/api/weather")
+@app.get('/api/weather')
 def weather():
-    return full_weather_payload()
+    # Retrieves the live report (automatically manages the 2-hour update refresh)
+    return weather_service.get_weather_report()
 
 
 @app.get("/api/news")
