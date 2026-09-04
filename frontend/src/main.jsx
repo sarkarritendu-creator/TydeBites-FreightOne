@@ -7,6 +7,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles.css';
+import { getGreeting } from './utils/greetingHelper';
 
 class FreightOneErrorBoundary extends React.Component {
   constructor(props) {

@@ -6,6 +6,7 @@ so that real feeds can be swapped in later without touching business logic.
 
 Run:
   uvicorn main:app --reload --port 8000
+  python -m uvicorn main:app --reload 
 """
 
 from __future__ import annotations
