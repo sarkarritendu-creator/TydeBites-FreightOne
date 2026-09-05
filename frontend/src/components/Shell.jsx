@@ -14,6 +14,7 @@ const TABS = [
   ['procurement', 'Procurement Planner', Boxes],
   ['freight', 'Freight Intelligence', TrendingUp],
   ['optimizer', 'Port Optimizer', Route],
+  ['vessel', 'Vessel Optimizer', Ship],
   ['tracker', 'Consignment Tracker', Ship],
   ['simulation', 'What-if Simulation', SlidersHorizontal],
   ['alerts', 'Alert Center', Bell],

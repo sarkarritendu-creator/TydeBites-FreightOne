@@ -9,6 +9,7 @@ import CommandCenter from './pages/CommandCenter';
 import Procurement from './pages/Procurement';
 import FreightIntelligence from './pages/FreightIntelligence';
 import PortOptimizer from './pages/PortOptimizer';
+import VesselOptimizer from './pages/VesselOptimizer';
 import ConsignmentTracker from './pages/ConsignmentTracker';
 import WhatIfSimulation from './pages/WhatIfSimulation';
 import AlertCenter from './pages/AlertCenter';
@@ -71,6 +72,9 @@ export default function App() {
       break;
     case 'optimizer':
       content = <PortOptimizer auth={auth} />;
+      break;
+    case 'vessel':
+      content = <VesselOptimizer auth={auth} />;
       break;
     case 'tracker':
       content = <ConsignmentTracker auth={auth} />;

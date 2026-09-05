@@ -6,12 +6,13 @@ so that real feeds can be swapped in later without touching business logic.
 
 Run:
   uvicorn main:app --reload --port 8000
-  python -m uvicorn main:app --reload 
+  python -m uvicorn main:app --reload
 """
 
 from __future__ import annotations
 from datetime import date
 from typing import Optional, List
+from services.live_news_service import fetch_live_news
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -23,6 +24,12 @@ from services.data_loader import (
 from services.bdi_forecast import forecast_bdi
 from services.risk_analyzer import network_risk_score, full_weather_payload
 from services.route_optimizer import rank_ports, procurement_plan, evaluate_route
+
+# Additive intelligence modules. Existing services/routes below are preserved.
+from services.finbert_service import analyze_news
+from services.live_feed_service import get_live_feed
+from services.live_news_service import fetch_live_news
+from services.vessel_optimizer import optimize_vessels
 
 app = FastAPI(
     title="FreightOne API",
@@ -66,6 +73,20 @@ class WhatIfIn(BaseModel):
     plant_code: str = "RSP"
     priority: float = 55
     alt_port: Optional[str] = None
+
+
+class VesselOptimizeIn(BaseModel):
+    """Keep the port fixed and optimise only the vessel choice."""
+    port: str = "paradip"
+    quantity_mt: float = 80000
+    deadline_days: Optional[float] = 30
+    origin: Optional[str] = None
+    material: Optional[str] = "coking_coal"
+
+
+class FinBERTIn(BaseModel):
+    text: Optional[str] = None
+    items: Optional[List[dict]] = None
 
 
 # ---------------------------------------------------------------------------
@@ -177,6 +198,15 @@ def weather():
 def news():
     return news_feed()
 
+@app.get("/api/live-news")
+def live_news(
+    material: Optional[str] = None,
+    origin: Optional[str] = None,
+    port: Optional[str] = None,
+):
+    """Explicit live-news endpoint for the Live Intelligence UI."""
+    return fetch_live_news(material=material, origin=origin, port=port)
+
 
 # ---------------------------------------------------------------------------
 # Consignments
@@ -216,7 +246,6 @@ def inventory(plant_code: str = "RSP"):
             and c.get("material") == mid
             and str(c.get("status", "")).lower() not in ("delivered",)
         )
-        # future + active reduce urgency
         effective = (stock + incoming * 0.75) / daily if daily else 0
         urgency = min(10, max(1, round(14 - effective)))
         if effective < m.get("safety_days", 6):
@@ -244,7 +273,6 @@ def inventory(plant_code: str = "RSP"):
 @app.get("/api/alerts")
 def alerts(plant_code: str = "RSP"):
     alerts_list = []
-    # Delayed consignments
     for c in load_consignments().get("items", []):
         if str(c.get("status", "")).lower() == "delayed":
             alerts_list.append({
@@ -255,7 +283,6 @@ def alerts(plant_code: str = "RSP"):
                 "action": "Open recovery / reroute recommendation",
                 "ref": c["id"],
             })
-    # Weather
     risk = network_risk_score()
     if risk["risk_level"] in ("amber", "red"):
         alerts_list.append({
@@ -265,7 +292,6 @@ def alerts(plant_code: str = "RSP"):
             "impact": f"Network risk score {risk['risk_score']}/100",
             "action": "Monitor vessel ETAs and berth windows",
         })
-    # Market / BDI
     fc = forecast_bdi(30)
     trend = fc["forecast"][14]["bdi"] - fc["history"][-1]["bdi"]
     if trend > 40:
@@ -276,7 +302,6 @@ def alerts(plant_code: str = "RSP"):
             "impact": "Future charter cost sensitivity over next 2 weeks",
             "action": "Review booking window before further firming",
         })
-    # Inventory
     inv = inventory(plant_code)["items"]
     for item in inv:
         if item["urgency_index"] >= 8:
@@ -358,6 +383,65 @@ def optimizer(body: RouteIn):
 
 
 # ---------------------------------------------------------------------------
+# NEW — Vessel optimiser
+# Port remains constant; only vessel size/type is changed.
+# ---------------------------------------------------------------------------
+
+@app.post("/api/vessel-optimizer")
+def vessel_optimizer(body: VesselOptimizeIn):
+    try:
+        return optimize_vessels(
+            port=body.port,
+            quantity_mt=body.quantity_mt,
+            deadline_days=body.deadline_days,
+            origin=body.origin,
+            material=body.material,
+        )
+    except (ValueError, KeyError, FileNotFoundError) as exc:
+        raise HTTPException(400, str(exc))
+
+
+@app.get("/api/vessels")
+def vessels(port: Optional[str] = None):
+    """Expose vessel reference data for the additional optimiser row."""
+    import json
+    from pathlib import Path
+    path = Path(__file__).resolve().parent / "data" / "vessels.json"
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        raise HTTPException(500, f"Unable to load vessel data: {exc}")
+    if port:
+        p = payload.get("ports", {}).get(port)
+        if p is None:
+            raise HTTPException(404, "Port not found")
+        return {"port": port, "port_info": p, "vessels": payload.get("vessels", [])}
+    return payload
+
+
+# ---------------------------------------------------------------------------
+# NEW — Live feeds + FinBERT
+# ---------------------------------------------------------------------------
+
+@app.get("/api/live-feed")
+def live_feed():
+    """Fetch live freight news, world-market snapshots and marine weather."""
+    payload = get_live_feed()
+    payload["finbert"] = analyze_news(payload.get("news", []))
+    return payload
+
+
+@app.post("/api/finbert")
+def finbert(body: FinBERTIn):
+    """Run FinBERT on supplied text or a list of news objects."""
+    if body.items is not None:
+        return analyze_news(body.items)
+    if body.text is None:
+        raise HTTPException(400, "Provide either text or items")
+    return analyze_news([{"title": body.text}])
+
+
+# ---------------------------------------------------------------------------
 # What-if
 # ---------------------------------------------------------------------------
 
@@ -374,7 +458,6 @@ def what_if(body: WhatIfIn):
     base = base_plan["selected"]
     best = base_plan["best_overall"]
 
-    # Optional forced alternative
     alt = None
     if body.alt_port and body.alt_port != body.port:
         try:

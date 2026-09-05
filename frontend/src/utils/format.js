@@ -11,6 +11,7 @@ export const titleMap = {
   procurement: 'Procurement Planner',
   freight: 'Freight Intelligence',
   optimizer: 'Port Optimizer',
+  vessel: 'Vessel Optimizer',
   tracker: 'Consignment Tracker',
   simulation: 'What-if Simulation',
   alerts: 'Alert Center',
