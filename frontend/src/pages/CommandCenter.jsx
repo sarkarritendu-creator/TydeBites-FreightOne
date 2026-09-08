@@ -70,16 +70,26 @@ export default function CommandCenter({ auth, setPage }) {
 
   return (
     <div className="page">
-      <PageHead
-        eyebrow="COMMAND CENTER"
-        title={`${getGreeting()}, ${auth.plant.name}`}
-        desc="One view across procurement, freight, route risk and live shipments."
+      <div 
+        onClick={() => setPage('report')} 
+        style={{ cursor: 'pointer', transition: 'opacity 0.2s' }}
+        className="welcome-header-clickable">
+      <PageHead 
+        eyebrow="COMMAND CENTER ↗ (View Executive Report)" 
+        title={`${typeof getGreeting === 'function' ? getGreeting() : 'Good morning'}, ${auth.plant.name}`} 
+        desc="One view across procurement, freight, route risk and live shipments. Click anywhere on this header to view the Executive Report." 
         action={
-          <button className="secondary" onClick={() => window.location.reload()}>
+          <button 
+            className="secondary" 
+            onClick={(e) => { 
+              e.stopPropagation(); // Prevents page redirection when clicking the refresh button!
+              window.location.reload(); 
+            }}>
             <RefreshCw size={14} /> Refresh intelligence
           </button>
-        }
+        } 
       />
+      </div>
 
       <section className="kpis">
         <KPI
@@ -112,23 +122,31 @@ export default function CommandCenter({ auth, setPage }) {
       </section>
 
       <div className="grid two">
-        <section className="panel">
+        <section className="panel hover-glow" onClick={() => setPage('freight')} 
+                  style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}>
           <div className="panel-head">
             <div>
-              <h3>Freight market intelligence</h3>
-              <p>Historical rate trajectory with the current model horizon.</p>
+              <h3>Freight market intelligence <span style={{ fontSize: '0.8em', color: '#4d95ef' }}>↗</span></h3>
+              <p>Historical rate trajectory with the current model horizon. Click to expand.</p>
             </div>
+            <span className="live-tag"><i />LIVE</span>
           </div>
           <Chart data={chart} />
         </section>
 
         <section className="panel">
-          <div className="panel-head">
-            <div>
-              <h3>Live intelligence</h3>
-              <p>AI procurement action and market / weather signals.</p>
-            </div>
+          <div className="panel-head" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <h3>Live intelligence</h3>
+            <p>AI procurement action and market / weather signals.</p>
           </div>
+        <button 
+      className="secondary small" 
+      onClick={() => setPage('alerts')}
+      style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          Alert Center <ChevronRight size={14} />
+    </button>
+  </div>
           <div className="decision hold">
             <div className="decision-icon"><BrainCircuit size={20} /></div>
             <div>
