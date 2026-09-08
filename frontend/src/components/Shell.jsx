@@ -11,8 +11,8 @@ import { titleMap } from '../utils/format';
 
 const TABS = [
   ['dashboard', 'Command Center', BarChart3],
-  ['procurement', 'Procurement Planner', Boxes],
   ['freight', 'Freight Intelligence', TrendingUp],
+  ['procurement', 'Procurement Planner', Boxes],
   ['optimizer', 'Port Optimizer', Route],
   ['vessel', 'Vessel Optimizer', Ship],
   ['tracker', 'Consignment Tracker', Ship],

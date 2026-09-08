@@ -16,3 +16,9 @@
 .vessel-map-legend i{width:18px;height:3px;border-radius:2px;display:inline-block}
 .ship-marker{background:transparent!important;border:none!important}
 .leaflet-container{background:#0c1728;font-family:Inter,system-ui,sans-serif}
+
+/* Clickable Panel Effects */
+.hover-glow {transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;}
+.hover-glow:hover {transform: translateY(-2px);border-color: #4d95ef;box-shadow: 0 4px 20px rgba(77, 149, 239, 0.15);}
+.welcome-header-clickable {transition: opacity 0.2s ease;}
+.welcome-header-clickable:hover {opacity: 0.9;}
