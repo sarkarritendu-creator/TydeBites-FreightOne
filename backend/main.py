@@ -12,7 +12,7 @@ Run:
 from __future__ import annotations
 from datetime import date
 from typing import Optional, List
-from fastapi import FastAPI, HTTPException, Query, Header
+from fastapi import FastAPI, HTTPException, Query, Header, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from services.weather_service import weather_service
@@ -951,6 +951,11 @@ def api_ml_forecast(horizon: int = Query(90, ge=30, le=120), material: str = "co
     return ml_forecast(horizon_days=horizon, material=material)
 
 
-@app.get("/api/health")
+@app.api_route("/api/health", methods=["GET", "HEAD"], status_code=status.HTTP_200_OK)
 def health():
-    return {"status": "ok", "service": "FreightOne", "version": "5.0.0", "data_mode": "JSON demo data"}
+    return {
+        "status": "ok",
+        "service": "FreightOne",
+        "version": "5.0.0",
+        "data_mode": "JSON demo data"
+    }
